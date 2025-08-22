@@ -1,0 +1,231 @@
+:root{
+  /* Colors */
+  --bg-gray: #bfbfbf;
+  --black: #111;
+  --white: #ffffff;
+  --yellow: #ffdf33;
+  --yellow-stroke: #000000;
+  --red: #e1252a;
+
+  /* Sizing (base canvas is 1080x1350 for easy export/print/IG) */
+  --w: 1080px;
+  --h: 1350px;
+  --frame-pad: 36px;
+  --frame-stroke: 6px;
+
+  /* Typography */
+  --headline-size: 112px;
+  --event-line-size: 54px;
+  --venue-size: 54px;
+  --details-size: 28px;
+  --address-size: 26px;
+
+  /* Effects */
+  --text-shadow: 0 2px 6px rgba(0,0,0,.35);
+}
+
+/* Page centering */
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: var(--bg-gray);
+  display: grid;
+  place-items: center;
+  font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* Poster canvas with background image */
+.canvas {
+  width: min(95vw, var(--w));
+  aspect-ratio: 1080 / 1350;
+  height: auto;
+  position: relative;
+  background:
+    /* subtle dark overlay for readability */
+    linear-gradient(rgba(0,0,0,.15), rgba(0,0,0,.15)),
+    url("./assets/background.svg") center/cover no-repeat;
+  box-shadow: 0 25px 60px rgba(0,0,0,.35);
+  overflow: hidden;
+}
+
+/* Inner frame */
+.frame {
+  position: absolute;
+  inset: var(--frame-pad);
+  border: var(--frame-stroke) solid var(--black);
+  background: rgba(255,255,255,0.0); /* transparent over image */
+}
+
+/* Top brand plaque */
+.brand-plaque{
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--yellow);
+  border: 6px solid var(--yellow-stroke);
+  border-radius: 16px;
+  padding: 10px 28px 6px;
+  box-shadow: 0 8px 0 rgba(0,0,0,.15), 0 2px 0 rgba(0,0,0,.15) inset;
+}
+.brand-text{
+  font-family: 'Bebas Neue', system-ui, sans-serif;
+  font-size: 64px;
+  letter-spacing: 2px;
+  color: #151515;
+  text-shadow: 0 1px 0 #fff9, 0 2px 0 rgba(0,0,0,.2);
+}
+
+/* Main content layout */
+.content{
+  position: absolute;
+  inset: 120px 60px 150px 60px;
+  color: var(--white);
+  text-align: center;
+  display: grid;
+  grid-auto-rows: max-content;
+  align-content: start;
+  gap: 18px;
+}
+
+/* NIL LOUNGE headline */
+.headline{
+  margin: 0 0 6px 0;
+  font-weight: 900;
+  font-size: var(--headline-size);
+  letter-spacing: 2px;
+  line-height: .95;
+  text-transform: uppercase;
+  color: var(--white);
+  text-shadow: var(--text-shadow);
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 18px;
+}
+.headline-left, .headline-right{
+  font-weight: 900;
+}
+
+/* Event details block */
+.event-block{
+  margin-top: 6px;
+  display: grid;
+  gap: 6px;
+}
+.event-line{
+  font-size: var(--event-line-size);
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: var(--text-shadow);
+}
+.event-line.venue{
+  font-size: var(--venue-size);
+}
+
+/* Thin divider */
+.divider{
+  width: 72%;
+  margin: 16px auto 12px;
+  border: none;
+  height: 2px;
+  background: rgba(255,255,255,.65);
+}
+
+/* Body copy */
+.details{
+  margin: 0;
+  font-size: var(--details-size);
+  font-weight: 800;
+  letter-spacing: .75px;
+  line-height: 1.35;
+  text-transform: uppercase;
+  text-shadow: var(--text-shadow);
+}
+
+/* Address */
+.address{
+  margin: 18px 0 0 0;
+  font-style: normal;
+  font-size: var(--address-size);
+  font-weight: 800;
+  letter-spacing: .75px;
+  line-height: 1.35;
+  text-transform: uppercase;
+  text-shadow: var(--text-shadow);
+}
+
+/* Bottom ribbon */
+.ribbon{
+  position: absolute;
+  left: -36px;
+  right: -36px;
+  bottom: -6px;
+  height: 74px;
+  background: var(--red);
+  border-top: 6px solid rgba(255,255,255,.1);
+  display: grid;
+  place-items: center;
+  color: var(--white);
+  font-weight: 900;
+  font-size: 28px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  box-shadow: 0 -6px 0 rgba(0,0,0,.15) inset;
+}
+.ribbon::after{
+  /* angled corner on the right edge */
+  content:"";
+  position:absolute;
+  right:-1px;
+  bottom:0;
+  width: 120px;
+  height: 100%;
+  background: inherit;
+  clip-path: polygon(22% 0,100% 0,100% 100%,0% 100%);
+}
+
+/* Bottom ornaments (capsule + badge) */
+.bottom-ornaments{
+  position: absolute;
+  bottom: 18px;
+  left: 24px;
+  right: 24px;
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+.capsule{
+  background: rgba(255,255,255,.9);
+  color:#2a2a2a;
+  padding: 10px 22px 8px;
+  border-radius: 10px;
+  font-family: 'Bebas Neue', system-ui, sans-serif;
+  font-size: 40px;
+  letter-spacing: 2px;
+  text-shadow: 0 1px 0 rgba(255,255,255,.7);
+  border: 2px solid rgba(0,0,0,.08);
+}
+.badge{
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,.35));
+}
+
+/* Responsive scaling: keep proportions while shrinking */
+@media (max-width: 900px){
+  :root{
+    --headline-size: 12vw;
+    --event-line-size: 6vw;
+    --venue-size: 6vw;
+    --details-size: 3.2vw;
+    --address-size: 3vw;
+  }
+  .brand-text{ font-size: 6.8vw; }
+  .capsule{ font-size: 4.5vw; }
+}
